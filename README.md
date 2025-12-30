@@ -16,6 +16,7 @@ Compare generated `assert` statements against reference test cases using **chara
 
 ## Project Structure
 
+```
 ├── data/
 │ ├── private_functions/ # Private target functions for test generation
 │ ├── generated_tests/ # Model-generated test cases (JSONL)
@@ -37,6 +38,7 @@ Compare generated `assert` statements against reference test cases using **chara
 │
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
