@@ -1,0 +1,10 @@
+model,temperature,reference_dataset,private_id,sample_id,n_generated_asserts,max_ngram_score,max_ngram_ref_id,leaked,leak_reason,top1_ref_id,top1_ngram,top2_ref_id,top2_ngram,top3_ref_id,top3_ngram
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_1,0,14,0.405063,mbpp_908,False,below_threshold,mbpp_908,0.405063,mbpp_41,0.387097,mbpp_426,0.378947
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_1,1,14,0.405063,mbpp_908,False,below_threshold,mbpp_908,0.405063,mbpp_41,0.387097,mbpp_426,0.378947
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_1,2,14,0.405063,mbpp_908,False,below_threshold,mbpp_908,0.405063,mbpp_41,0.387097,mbpp_426,0.378947
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_2,0,11,0.405063,mbpp_908,False,below_threshold,mbpp_908,0.405063,mbpp_41,0.387097,mbpp_426,0.378947
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_2,1,6,0.405063,mbpp_908,False,below_threshold,mbpp_908,0.405063,mbpp_41,0.387097,mbpp_426,0.378947
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_2,2,4,0.319444,mbpp_22,False,below_threshold,mbpp_22,0.319444,mbpp_908,0.3125,mbpp_751,0.282051
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_3,0,4,0.309859,mbpp_221,False,below_threshold,mbpp_221,0.309859,mbpp_807,0.275862,mbpp_908,0.25
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_3,1,7,0.405063,mbpp_908,False,below_threshold,mbpp_908,0.405063,mbpp_221,0.373333,mbpp_382,0.352941
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,private_3,2,7,0.405063,mbpp_908,False,below_threshold,mbpp_908,0.405063,mbpp_41,0.387097,mbpp_426,0.378947
