@@ -1,4 +1,3 @@
-# src/ingest/mbpp_extract_parquet.py
 from __future__ import annotations
 
 import ast
@@ -68,7 +67,7 @@ def get_parquet_urls(dataset: str, config: str, split: str) -> List[str]:
 
 def build_mbpp_reference(
     out_path: str = "data/reference/mbpp_tests.json",
-    config: str = "full",     # try "full"; if it errors, see the printed availability
+    config: str = "full",    
     split: str = "test",
 ) -> None:
     out_file = Path(out_path)
@@ -78,7 +77,6 @@ def build_mbpp_reference(
 
     parquet_urls = get_parquet_urls(dataset_name, config=config, split=split)
 
-    # Load parquet directly (no dataset scripts)
     ds = load_dataset("parquet", data_files=parquet_urls, split="train")
 
     records: List[Dict[str, Any]] = []

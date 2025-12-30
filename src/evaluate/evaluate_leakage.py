@@ -7,9 +7,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence
 
-# ----------------------------
-# Similarity helpers (N-gram overlap only)
-# ----------------------------
 
 def _normalize_assert(s: str) -> str:
     s = (s or "").strip()

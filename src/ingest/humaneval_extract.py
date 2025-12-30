@@ -1,4 +1,3 @@
-# src/ingest/humaneval_extract.py
 from __future__ import annotations
 
 import ast
@@ -33,7 +32,6 @@ def extract_docstring_from_prompt(prompt: str) -> Optional[str]:
         return None
 
     def truncate_at_doctest(doc: str) -> str:
-        # Support both >>> (standard doctest) and <<< (user mentioned)
         cut_positions = []
         for marker in (">>>", "<<<"):
             idx = doc.find(marker)
@@ -43,7 +41,6 @@ def extract_docstring_from_prompt(prompt: str) -> Optional[str]:
             doc = doc[: min(cut_positions)]
         return doc.strip()
 
-    # 1) Preferred: AST extraction (robust to formatting), then truncate
     try:
         tree = ast.parse(prompt)
         for node in tree.body:
@@ -54,7 +51,6 @@ def extract_docstring_from_prompt(prompt: str) -> Optional[str]:
     except SyntaxError:
         pass
 
-    # 2) Fallback: regex between triple quotes, then truncate
     m = re.search(r'"""(.*?)"""', prompt, flags=re.DOTALL)
     if m:
         doc = m.group(1)
@@ -88,19 +84,16 @@ def extract_asserts_from_test_code(test_code: str) -> List[str]:
     try:
         tree = ast.parse(test_code)
     except SyntaxError:
-        # If parsing fails, best-effort regex: lines starting with "assert "
         return [ln.strip() for ln in test_code.splitlines() if ln.strip().startswith("assert ")]
 
     tests: List[str] = []
 
     def unparse(node: ast.AST) -> str:
-        # Python 3.9+ has ast.unparse
         try:
             return ast.unparse(node).strip()
         except Exception:
             return ""
 
-    # Find `check` function
     check_fn: Optional[ast.FunctionDef] = None
     for node in tree.body:
         if isinstance(node, ast.FunctionDef) and node.name == "check":
@@ -108,7 +101,6 @@ def extract_asserts_from_test_code(test_code: str) -> List[str]:
             break
 
     if check_fn is None:
-        # fallback: all Assert nodes anywhere
         for n in ast.walk(tree):
             if isinstance(n, ast.Assert):
                 s = "assert " + unparse(n.test)
@@ -116,7 +108,6 @@ def extract_asserts_from_test_code(test_code: str) -> List[str]:
                     tests.append(s)
         return _dedupe_keep_order(tests)
 
-    # Extract asserts in check(candidate)
     for stmt in check_fn.body:
         if isinstance(stmt, ast.Assert):
             expr = unparse(stmt.test)
@@ -146,8 +137,7 @@ def build_humaneval_reference(
     out_file = Path(out_path)
     out_file.parent.mkdir(parents=True, exist_ok=True)
 
-    # Official HumanEval on HF
-    ds = load_dataset("openai/openai_humaneval", split=split)  # :contentReference[oaicite:1]{index=1}
+    ds = load_dataset("openai/openai_humaneval", split=split)  
 
     records: List[Dict[str, Any]] = []
     skipped = 0

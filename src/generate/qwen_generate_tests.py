@@ -11,7 +11,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from data.private_functions.private_functions import PRIVATE_FUNCTIONS
 
 
-MODEL_NAME = "Qwen/Qwen2.5-Coder-1.5B-Instruct"  # adjust if you use a different repo id
+MODEL_NAME = "Qwen/Qwen2.5-Coder-1.5B-Instruct" 
 
 
 def build_prompt(entry: Dict[str, Any]) -> str:
@@ -39,7 +39,6 @@ def extract_asserts(text: str) -> List[str]:
         s = line.strip()
         if s.startswith("assert "):
             asserts.append(s)
-    # de-dupe preserving order
     seen = set()
     out = []
     for a in asserts:
@@ -60,7 +59,6 @@ def generate_one(
 
     with torch.no_grad():
         if temperature == 0.0:
-            # greedy
             out_ids = model.generate(
                 **inputs,
                 do_sample=False,
