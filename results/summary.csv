@@ -1,9 +1,9 @@
 model,temperature,reference_dataset,total_samples,leaked_samples,leakage_rate,mean_max_ngram
-Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,9,0,0.0,0.384972
-Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,humaneval,9,0,0.0,0.429879
-Qwen/Qwen2.5-Coder-1.5B-Instruct,0.8,mbpp,9,0,0.0,0.384972
-Qwen/Qwen2.5-Coder-1.5B-Instruct,0.8,humaneval,9,0,0.0,0.429879
-bigcode/starcoder2-3b,0.2,mbpp,9,0,0.0,0.382204
-bigcode/starcoder2-3b,0.2,humaneval,9,0,0.0,0.429879
-bigcode/starcoder2-3b,0.8,mbpp,9,0,0.0,0.384972
-bigcode/starcoder2-3b,0.8,humaneval,9,0,0.0,0.429879
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,70,13,0.185714,0.328249
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,humaneval,70,18,0.257143,0.300572
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.8,mbpp,105,15,0.142857,0.262314
+Qwen/Qwen2.5-Coder-1.5B-Instruct,0.8,humaneval,105,11,0.104762,0.232857
+bigcode/starcoder2-3b,0.2,mbpp,70,21,0.3,0.253612
+bigcode/starcoder2-3b,0.2,humaneval,70,14,0.2,0.228856
+bigcode/starcoder2-3b,0.8,mbpp,105,17,0.161905,0.196002
+bigcode/starcoder2-3b,0.8,humaneval,105,10,0.095238,0.173853

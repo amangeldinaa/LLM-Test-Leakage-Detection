@@ -239,8 +239,8 @@ def main(
     generated_root: str = "data/generated_tests",
     reference_root: str = "data/reference",
     results_root: str = "results",
-    ngram_n: int = 4,
-    thr_ngram: float = 0.65,
+    ngram_n: int = 3,
+    thr_ngram: float = 0.40,
     top_k: int = 3,
 ) -> None:
     generated_root_p = Path(generated_root)
