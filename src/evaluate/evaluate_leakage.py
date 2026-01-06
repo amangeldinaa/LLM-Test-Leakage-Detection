@@ -240,7 +240,7 @@ def main(
     reference_root: str = "data/reference",
     results_root: str = "results",
     ngram_n: int = 3,
-    thr_ngram: float = 0.40,
+    thr_ngram: float = 0.50,
     top_k: int = 3,
 ) -> None:
     generated_root_p = Path(generated_root)

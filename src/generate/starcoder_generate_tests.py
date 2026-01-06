@@ -80,13 +80,14 @@ def generate_one(
 
 def main(
     out_dir: str = "data/generated_tests/starcoder",
-    temperatures=(0.2, 0.8),
+    temperatures=(0.2, 0.5, 0.8),
 ):
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
     samples_per_temperature = {
         0.2: 2,
+        0.5: 3,
         0.8: 3,
     }
 

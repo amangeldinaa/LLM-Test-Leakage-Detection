@@ -11,7 +11,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 from data.private_functions.private_functions import PRIVATE_FUNCTIONS
 
 
-MODEL_NAME = "Qwen/Qwen2.5-Coder-1.5B-Instruct" 
+MODEL_NAME = "meta-llama/Llama-2-7b-chat-hf"
 
 
 def build_prompt(entry: Dict[str, Any]) -> str:
@@ -58,29 +58,22 @@ def generate_one(
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
 
     with torch.no_grad():
-        if temperature == 0.0:
-            out_ids = model.generate(
-                **inputs,
-                do_sample=False,
-                max_new_tokens=max_new_tokens,
-            )
-        else:
-            out_ids = model.generate(
-                **inputs,
-                do_sample=True,
-                temperature=temperature,
-                top_p = 0.95,
-                top_k = 50,
-                max_new_tokens=max_new_tokens,
-            )
+        out_ids = model.generate(
+            **inputs,
+            do_sample=temperature > 0.0,
+            temperature=temperature if temperature > 0.0 else None,
+            top_p=0.95,
+            max_new_tokens=max_new_tokens,
+            eos_token_id=tokenizer.eos_token_id,
+            pad_token_id=tokenizer.eos_token_id,
+        )
 
     prompt_len = inputs["input_ids"].shape[1]
-    generated_ids = out_ids[0][prompt_len:]
-    return tokenizer.decode(generated_ids, skip_special_tokens=True)
+    return tokenizer.decode(out_ids[0][prompt_len:], skip_special_tokens=True)
 
 
 def main(
-    out_dir: str = "data/generated_tests/qwen",
+    out_dir: str = "data/generated_tests/llama2",
     temperatures=(0.2, 0.5, 0.8),
 ):
     out_dir = Path(out_dir)
@@ -96,17 +89,26 @@ def main(
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Using device: {device}")
 
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        MODEL_NAME, 
+        use_fast=False,
+        trust_remote_code=True
+    )
+    
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token = tokenizer.eos_token
+    
     model = AutoModelForCausalLM.from_pretrained(
         MODEL_NAME,
         torch_dtype=torch.float16 if device == "cuda" else torch.float32,
+        device_map="auto" if device == "cuda" else None,
         trust_remote_code=True,
     )
     model.to(device)
     model.eval()
 
     for temp in temperatures:
-        out_file = out_dir / f"Qwen2.5-Coder-1.5B-Instruct-Temperature-{temp}.jsonl"
+        out_file = out_dir / f"LLaMA2-7B-Chat-Temperature-{temp}.jsonl"
 
         num_samples = samples_per_temperature.get(float(temp))
         if num_samples is None:
@@ -139,8 +141,8 @@ def main(
     # Create pretty-printed snapshots for easier inspection
     for temp in temperatures:
         records = []
-        in_path = out_dir / f"Qwen2.5-Coder-1.5B-Instruct-Temperature-{temp}.jsonl"
-        out_path = out_dir / f"Qwen2.5-Coder-1.5B-Instruct-Temperature-{temp}-pretty.json"
+        in_path = out_dir / f"LLaMA2-7B-Chat-Temperature-{temp}.jsonl"
+        out_path = out_dir / f"LLaMA2-7B-Chat-Temperature-{temp}-pretty.json"
 
         with in_path.open("r", encoding="utf-8") as f:
             for line in f:
