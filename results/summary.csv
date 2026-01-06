@@ -1,4 +1,10 @@
 model,temperature,reference_dataset,total_samples,leaked_samples,leakage_rate,mean_max_ngram
+meta-llama/Llama-2-7b-chat-hf,0.2,mbpp,210,17,0.080952,0.164067
+meta-llama/Llama-2-7b-chat-hf,0.2,humaneval,210,7,0.033333,0.139686
+meta-llama/Llama-2-7b-chat-hf,0.5,mbpp,315,16,0.050794,0.199401
+meta-llama/Llama-2-7b-chat-hf,0.5,humaneval,315,10,0.031746,0.175274
+meta-llama/Llama-2-7b-chat-hf,0.8,mbpp,315,19,0.060317,0.213594
+meta-llama/Llama-2-7b-chat-hf,0.8,humaneval,315,16,0.050794,0.190778
 Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,mbpp,210,27,0.128571,0.350906
 Qwen/Qwen2.5-Coder-1.5B-Instruct,0.2,humaneval,210,10,0.047619,0.291807
 Qwen/Qwen2.5-Coder-1.5B-Instruct,0.5,mbpp,315,28,0.088889,0.323027

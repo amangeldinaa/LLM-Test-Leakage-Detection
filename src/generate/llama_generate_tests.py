@@ -73,7 +73,7 @@ def generate_one(
 
 
 def main(
-    out_dir: str = "data/generated_tests/llama2",
+    out_dir: str = "data/generated_tests/llama",
     temperatures=(0.2, 0.5, 0.8),
 ):
     out_dir = Path(out_dir)
