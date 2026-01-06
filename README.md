@@ -111,8 +111,8 @@ Private functions are written manually to ensure no overlap with reference datas
 Run model-specific generation scripts:
 
 ```bash
-python src/generate/generate_qwen.py
-python src/generate/generate_starcoder.py
+python src/generate/qwen_generate_tests.py
+python src/generate/starcoder_generate_tests.py
 ```
 
 Each script:
